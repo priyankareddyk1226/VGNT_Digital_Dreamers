@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Clean light palette — slate whites with warm accents */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 12%;
+
+    /* Saffron-inspired primary — warm amber/orange */
+    --primary: 30 95% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 16% 93%;
+    --secondary-foreground: 215 20% 35%;
+
+    --muted: 210 16% 95%;
+    --muted-foreground: 215 16% 48%;
+
+    --accent: 210 16% 93%;
+    --accent-foreground: 215 25% 12%;
+
+    --destructive: 0 80% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 16% 88%;
+    --input: 214 16% 88%;
+    --ring: 30 95% 50%;
+    --radius: 0.625rem;
+
+    /* Chart colours */
+    --chart-1: 30 95% 50%;
+    --chart-2: 142 70% 40%;
+    --chart-3: 0 72% 54%;
+    --chart-4: 262 60% 58%;
+    --chart-5: 198 80% 48%;
+
+    /* Sidebar specifically */
+    --sidebar-bg: 215 30% 18%;
+    --sidebar-fg: 210 20% 88%;
+    --sidebar-active: 30 95% 50%;
+    --sidebar-active-fg: 0 0% 100%;
+    --sidebar-hover: 215 25% 24%;
+    --sidebar-border: 215 25% 23%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ─── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  background: hsl(var(--sidebar-bg));
+  color: hsl(var(--sidebar-fg));
+  border-right: 1px solid hsl(var(--sidebar-border));
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  color: hsl(var(--sidebar-fg));
+  border: 1px solid transparent;
+  width: 100%;
+  text-align: left;
+}
+.sidebar-nav-item:hover {
+  background: hsl(var(--sidebar-hover));
+  color: #fff;
+}
+.sidebar-nav-item.active {
+  background: hsl(var(--sidebar-active) / 0.18);
+  color: hsl(var(--sidebar-active));
+  border-color: hsl(var(--sidebar-active) / 0.3);
+}
+
+/* ─── Cards ───────────────────────────────────────────── */
+.stat-card {
+  background: #fff;
+  border: 1px solid hsl(var(--border));
+  border-radius: 14px;
+  padding: 20px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.stat-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  border-color: hsl(30 95% 50% / 0.3);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.4); }
+
+/* ─── Live pulse ──────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+.pulse-live { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* ─── Fade in ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.35s ease-out forwards; }
+
+/* ─── Stagger ─────────────────────────────────────────── */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeIn 0.35s ease-out forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+
+/* ─── Progress bar shimmer ────────────────────────────── */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
